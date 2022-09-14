@@ -37,8 +37,8 @@ class ProductAdmin(admin.ModelAdmin):
     is_in_stock.short_description = 'Update the stock status of marked products'
 
     def added_days_ago(self, product):
-       fark = timezone.now() - product.create_date
-       return fark.days
+       difference = timezone.now() - product.create_date
+       return difference.days
 
 admin.site.register(Product, ProductAdmin)
 
