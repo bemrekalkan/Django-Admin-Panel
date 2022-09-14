@@ -1,10 +1,10 @@
 from django.contrib import admin
 
 from .models import Product
-
+from django.utils import timezone
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("name", "create_date", "is_in_stock", "update_date")
+    list_display = ("name", "create_date", "is_in_stock", "update_date","added_days_ago")
     list_editable = ( "is_in_stock", )
     # list_display_links = ("create_date", ) #? can't add items in list_editable to here
     list_filter = ("is_in_stock", "create_date")
@@ -33,8 +33,12 @@ class ProductAdmin(admin.ModelAdmin):
 
     def is_in_stock(self, request, queryset):
         count = queryset.update(is_in_stock=True)
-        self.message_user(request, f"{count} ... assorted products added to stock")
-    is_in_stock.short_description = 'Add marked products to stock'
+        self.message_user(request, f"{count} assorted products added to stock")
+    is_in_stock.short_description = 'Update the stock status of marked products'
+
+    def added_days_ago(self, product):
+       fark = timezone.now() - product.create_date
+       return fark.days
 
 admin.site.register(Product, ProductAdmin)
 
