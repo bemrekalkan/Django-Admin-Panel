@@ -2,7 +2,8 @@ from django.contrib import admin
 from .models import Product, Review, Category
 from django.utils import timezone
 from django.utils.safestring import mark_safe
-from django_admin_listfilter_dropdown.filters import RelatedDropdownFilter
+from django_admin_listfilter_dropdown.filters import RelatedDropdownFilter, DropdownFilter
+from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
 class ReviewInline(admin.TabularInline):  #? StackedInline different view, same job
     '''Tabular Inline View for '''
     model = Review
@@ -15,7 +16,7 @@ class ProductAdmin(admin.ModelAdmin):
                     "added_days_ago", "how_many_reviews", "bring_img_to_list")
     list_editable = ( "is_in_stock", )
     list_display_links = ("name",)
-    list_filter = ("is_in_stock", "create_date", "name")
+    list_filter = ("is_in_stock", ("create_date", DateTimeRangeFilter), ("name", DropdownFilter),)
     ordering = ("name",)
     search_fields = ("name",)
     prepopulated_fields = {'slug' : ('name',)}   #? when adding product in admin site
