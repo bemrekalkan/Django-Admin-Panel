@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Product, Review, Category
 from django.utils import timezone
-class ReviewInline(admin.TabularInline):  # StackedInline farklı bir görünüm aynı iş
+class ReviewInline(admin.TabularInline):  #? StackedInline different view, same job
     '''Tabular Inline View for '''
     model = Review
     extra = 1
@@ -11,7 +11,7 @@ class ReviewInline(admin.TabularInline):  # StackedInline farklı bir görünüm
 class ProductAdmin(admin.ModelAdmin):
     list_display = ("name", "create_date", "is_in_stock", "update_date","added_days_ago","how_many_reviews")
     list_editable = ( "is_in_stock", )
-    # list_display_links = ("create_date", ) #? can't add items in list_editable to here
+    list_display_links = ("name",)
     list_filter = ("is_in_stock", "create_date")
     ordering = ("name",)
     search_fields = ("name",)
