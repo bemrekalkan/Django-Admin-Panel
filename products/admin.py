@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Product, Review, Category
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 class ReviewInline(admin.TabularInline):  #? StackedInline different view, same job
     '''Tabular Inline View for '''
     model = Review
@@ -9,7 +10,8 @@ class ReviewInline(admin.TabularInline):  #? StackedInline different view, same 
     # min_num = 3
     # max_num = 20
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("name", "create_date", "is_in_stock", "update_date","added_days_ago","how_many_reviews")
+    list_display = ("name", "create_date", "is_in_stock", "update_date",
+                    "added_days_ago", "how_many_reviews", "bring_img_to_list")
     list_editable = ( "is_in_stock", )
     list_display_links = ("name",)
     list_filter = ("is_in_stock", "create_date")
@@ -48,6 +50,13 @@ class ProductAdmin(admin.ModelAdmin):
     def added_days_ago(self, product):
        difference = timezone.now() - product.create_date
        return difference.days
+
+    def bring_img_to_list(self, obj):
+        if obj.product_img:
+            return mark_safe(f"<img src={obj.product_img.url} width=50 height=50></img>")
+        return mark_safe("******")
+
+    
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'created_date', 'is_released')

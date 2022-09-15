@@ -36,7 +36,7 @@ class Product(models.Model):
 
     def bring_image(self):
         if self.product_img:
-            return mark_safe(f"<img src={self.product_img.url} width=400 height=400></img>")
+            return mark_safe(f"<img src={self.product_img.url} width=250 height=250></img>")
         return mark_safe(f"<h3>{self.name} has not image </h3>")
 
 class Review(models.Model):
