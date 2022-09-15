@@ -5,6 +5,7 @@ Django==4.1.1
 django-admin-list-filter-dropdown==1.0.3
 django-admin-rangefilter==0.8.8
 django-ckeditor==6.5.1
+django-grappelli==3.0.3
 django-import-export==2.9.0
 django-js-asset==2.0.0
 et-xmlfile==1.1.0

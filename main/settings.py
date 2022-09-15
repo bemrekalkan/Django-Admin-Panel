@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,8 +42,8 @@ INSTALLED_APPS = [
     'products',
     'ckeditor',
     'django_admin_listfilter_dropdown',
-    'import_export',
     'rangefilter',
+    'import_export',
 ]
 
 MIDDLEWARE = [
