@@ -56,7 +56,6 @@ class ProductAdmin(admin.ModelAdmin):
             return mark_safe(f"<img src={obj.product_img.url} width=50 height=50></img>")
         return mark_safe("******")
 
-    
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'created_date', 'is_released')
