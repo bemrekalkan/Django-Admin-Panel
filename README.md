@@ -267,7 +267,7 @@ admin.site.register(Review, ReviewAdmin)
 
 shell
 ```
-from products.models import Product, Review
+from product.models import Product, Review
 from faker import Faker
 faker = Faker()
 for product in Product.objects.iterator():
@@ -384,12 +384,19 @@ models.py
 ```python
 from django.utils.safestring import mark_safe
 
+# create media folder and upload defaults/clarusway.png
 product_img = models.ImageField(null=True, blank=True, default="defaults/clarusway.png", upload_to="product/")
 
     def bring_image(self):
         if self.product_img:
             return mark_safe(f"<img src={self.product_img.url} width=400 height=400></img>")
         return mark_safe(f"<h3>{self.name} has not image </h3>")
+
+# OR in admin.py
+    def bring_image(self, obj):
+        if obj.product_img:
+            return mark_safe(f"<img src={obj.product_img.url} width=400 height=400></img>")
+        return mark_safe(f"<h3>{obj.name} has not image </h3>")
 ```
 
 * pip install pillow
@@ -450,7 +457,7 @@ settings.py:
 ```
 ilk önce buraya bakar yoksa defaulta gider,
 
-templates/admin/products/product/change_form.html
+templates/admin/product/product/change_form.html
 
 ** içi boş olduğu için Ekleme ve Güncelleme Sayfaları boş görünecek
 
@@ -469,7 +476,7 @@ admin templates extends hierarchy:
 base.html > base_site.html > change_form.html
 
 templates/admin/base_site.html
-img directory :  contrib/admin/static/admin/img/clarusway.png
+img directory :  static/images/clarusway.png
 add clarusway.png to this directory
 base_site.html
 ```html
@@ -479,7 +486,7 @@ base_site.html
 
 {% block branding %}
     <div class="myDiv">
-    <img src="{% static 'admin/img/clarusway.png' %}" style="height: 50px; width: 50px;" alt="">
+    <img src="{% static  'images/clarusway.png' %}" style="height: 50px; width: 50px;" alt="">
     <h1 id="head">
         Clarusway Admin Site
     </h1>
